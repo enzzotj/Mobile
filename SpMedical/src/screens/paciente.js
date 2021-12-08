@@ -4,19 +4,19 @@ import api from '../services/api';
 import jwtDecode from 'jwt-decode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default class Medico extends Component {
+export default class Paciente extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      listaMedico: []
+      listaPaciente: []
     }
   }
 
-  buscarMedico = async () => {
+  buscarPaciente = async () => {
     const resposta = await api.get('/consultas');
     // console.warn(resposta)
     const dadosDaApi = resposta.data;
-    this.setState({ listaMedico: dadosDaApi });
+    this.setState({ listaPaciente: dadosDaApi });
 
   //   try {
 
@@ -47,7 +47,7 @@ export default class Medico extends Component {
    };
 
   componentDidMount() {
-    this.buscarMedico();
+    this.buscarPaciente();
   }
 
 
@@ -61,7 +61,7 @@ export default class Medico extends Component {
               source={require("../../assents/img/Logo.png")}
               style={styles.mainHeaderImg}
             />
-            <Text style={styles.mainHeaderText}>Medico</Text>
+            <Text style={styles.mainHeaderText}>PACIENTE</Text>
 
           </View>
 
@@ -75,7 +75,7 @@ export default class Medico extends Component {
           <FlatList
             contentContainerStyle={styles.mainBodyContent}
             data={this.state.listaMedico}
-            keyExtractor={item => item.nomePaciente}
+            keyExtractor={item => item.nomeMedico}
             renderItem={this.renderItem}
           />
         </View>
@@ -87,7 +87,7 @@ export default class Medico extends Component {
     <View style={styles.flatItemRow}>
       <View style={styles.flatItemContainer}>
 
-        <Text style={styles.flatItemInfo}>Paciente: {item.nomePaciente}</Text>
+        <Text style={styles.flatItemInfo}>Paciente: {item.nomeMedico}</Text>
         <Text style={styles.flatItemInfo}>Descrição: {item.descricao}</Text>
         <Text style={styles.flatItemInfo}>Situação: {item.situacao}</Text>
         <Text style={styles.flatItemInfo}>Data: {item.dataConsulta}</Text>
